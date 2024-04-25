@@ -2,86 +2,107 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="index.js"></script>
+        <link rel="stylesheet" href="style.css" >
         </head>
-<form class="report-container" id="report-container" onsubmit="return false;">
-  <input type="text" id="webhook-input" placeholder="Report a broken game or a bug, you can include your email if you want us to reach out to you" required><br>
-  <button type="button" onclick="sendData()">Submit</button>
-</form>
 
-<style>
-  .report-container {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-    padding: 5px;
-      padding-bottom: 20px;
-  }
 
-  /* Style for the search input */
-  .report-container input[type="text"] {
-    padding: 12px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    font-size: 18px;
-    inline-size: 100%;
-    margin-inline-end: 10px;
-  }
+<body>
+        <h1 style='font-size:4vw;' class="title" id="freedombrowser-title">Welcome to FreedomBrowser <br> Reporting and URL Index</h1>
+        Domains you can use to access this site include:
+        <li><a href="https://freedombrowser.org">  freedombrowser.org</a> (Main Domain)</li>
+        <li><a href="https://freedombrowser.uk.to">   freedombrowser.uk.to</a> (Secondary Domain) (UK Domain)</li>
+        <li><a href="https://freedombrowser.us.to">   freedombrowser.us.to</a> (Secondary Domain) (US Domain)</li>
+        <li><a href="https://classroom.google.uk.to"> classroom.google.uk.to</a>(Unblocked Domain)</li>
+        <li><a href="https://freedombrowser.fairuse.org/"> freedombrowser.fairuse.org</a>(Unblocked Domain)</li>
+</body>
 
-.report-container button {
-    background-color: #9d9d9d;
-    color: white;
-    padding: 12px 20px;
-    inline-size: 35%;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    }
-</style>
 
-<script>
-  const inputElement = document.getElementById('webhook-input');
-  var IP = "Unknown"
-  function getIP(json) {
-    IP = json.ip
-  }
-  var report
-  function sendData() {
-      if (!/^ *$/.test(inputElement.value)) {
-          $("#report-container").html('<div style="text-align: center; padding: 5px"><img src="slowloading.gif"' +
-              'alt="Submitting, please wait..." height="53px" width="53px"></div>')
-          report = JSON.stringify({
-                ip: IP+" Sent From URL site",
-                id: browserID,
-                content: inputElement.value.replace('"', ''),
-            });
-          $.ajax({
-              type: "POST",
-              url: "https://stonklat.com//report",
-              contentType: "application/json",
-              data: report,
-              success: function (response) {
-                  if (response === '404') {
-                      console.error('404 not found')
-                      $("#report-container").html("Error 404 not found, please send us an email if you see this, thank you.")
-                  } else if (response === 'ratelimited') {
-                      $("#report-container").html("<h3><b style='font-family: sans-serif; color: red'></b>You are being rate limited</h3>")
-                  } else if (response === 'spamdetected') {
-                      $("#report-container").html("<h3><b style='font-family: sans-serif; color: red'></b>This report has been identified as spam</h3>")
-                  } else {
-                      console.log(response)
-                      $("#report-container").html("<h3><b style='font-family: sans-serif'>Your report has been submitted, thank you</b></h3>");
-                  }
-              },
-              error: function (error) {
-                  console.log(error);
-                  $("#report-container").html("<h3><b style='font-family: sans-serif; color: red'>This report could not be sent, due to an error." +
-                      "It could be a temporary outage so please try again later.</b></h3>");
-              }
-          });
-      }
-  }
-</script>
-<script async src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!-- This is only for reports -->
+        <form class="report-container" id="report-container" onsubmit="return false;">
+        <input type="text" id="webhook-input" placeholder="Report a broken game or a bug, you can include your email if you want us to reach out to you" required><br>
+        <button type="button" onclick="sendData()">Submit</button>
+        </form>
+
+        <style>
+        .report-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            align-items: center;
+            padding: 5px;
+            padding-bottom: 20px;
+        }
+
+        /* Style for the search input */
+        .report-container input[type="text"] {
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px;
+            inline-size: 100%;
+            margin-inline-end: 10px;
+        }
+
+        .report-container button {
+            background-color: #9d9d9d;
+            color: white;
+            padding: 12px 20px;
+            inline-size: 35%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            }
+        </style>
+
+        <script>
+        const inputElement = document.getElementById('webhook-input');
+        var IP = "Unknown"
+        function getIP(json) {
+            IP = json.ip
+        }
+        var report
+        function sendData() {
+            if (!/^ *$/.test(inputElement.value)) {
+                $("#report-container").html('<div style="text-align: center; padding: 5px"><img src="slowloading.gif"' +
+                    'alt="Submitting, please wait..." height="53px" width="53px"></div>')
+                report = JSON.stringify({
+                        ip: IP+" Sent From URL site",
+                        id: browserID,
+                        content: inputElement.value.replace('"', ''),
+                    });
+                $.ajax({
+                    type: "POST",
+                    url: "https://stonklat.com//report",
+                    contentType: "application/json",
+                    data: report,
+                    success: function (response) {
+                        if (response === '404') {
+                            console.error('404 not found')
+                            $("#report-container").html("Error 404 not found, please send us an email if you see this, thank you.")
+                        } else if (response === 'ratelimited') {
+                            $("#report-container").html("<h3><b style='font-family: sans-serif; color: red'></b>You are being rate limited</h3>")
+                        } else if (response === 'spamdetected') {
+                            $("#report-container").html("<h3><b style='font-family: sans-serif; color: red'></b>This report has been identified as spam</h3>")
+                        } else {
+                            console.log(response)
+                            $("#report-container").html("<h3><b style='font-family: sans-serif'>Your report has been submitted, thank you</b></h3>");
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $("#report-container").html("<h3><b style='font-family: sans-serif; color: red'>This report could not be sent, due to an error." +
+                            "It could be a temporary outage so please try again later.</b></h3>");
+                    }
+                });
+            }
+        }
+        </script>
+        <script async src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!-- This is only for reports -->
+
+
+    <footer id="freedomfooter" style="border: none; border-radius: 10px; inset-inline-start: 0; inset-block-end: 0; padding: 5px;">
+        <p class="footer" style="user-select: none; color: black; font-size: 16px; text-align: center">&copy; Copyright <span id="currentYear"></span> of The_Maple_Tree and STONKLAT
+    </p>
+    </footer>
+
 </html>

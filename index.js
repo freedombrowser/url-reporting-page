@@ -16,3 +16,9 @@ if (localStorage.getItem(localStorageKey) !== null) {
   localStorage.setItem(localStorageKey, result);
   browserID = result;
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const currentYear = new Date().getFullYear();
+    document.getElementById('currentYear').textContent = currentYear;
+});
